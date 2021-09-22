@@ -1,16 +1,22 @@
 import React from "react";
 
-const TodoList = (props) => {
+const TodoList = ({ item, onRemove, onCompleted }) => {
+  const { id, text, completed } = item;
+
   return (
     <li>
-      <label className="label-done">
-        <input className="btn-done" type="checkbox"/>
-        {props.item.text}
+      <label className={`label-done ${completed ? 'todo-done' :''}`}>
+        <input checked={completed} 
+               onChange={() => onCompleted(id)}
+               className="btn-done" type="checkbox"/>
+        { text }
       </label>
 
-      <button className="btn-delete">
-        <i className="far fa-trash-alt"></i>
-      </button>
+      <div className="todo-delete">
+        <button onClick={() => onRemove(id)} className="btn-delete">
+          <i className="far fa-trash-alt"></i>
+        </button>
+      </div>
     </li>
   );
 }

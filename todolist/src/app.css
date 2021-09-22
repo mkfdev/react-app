@@ -15,7 +15,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 400px;
+  height: 600px;
 }
 
 .todo-app__header {
@@ -48,6 +48,7 @@ body {
 .todo-app__list {
   display: flex;
   height: 100%;
+  overflow-y: auto;
 }
 
 .todo-app__list h2 {
@@ -66,7 +67,11 @@ body {
 }
 
 .todo-app__list ul li {
-  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.todo-app__list ul li:hover {
+  background-color: #e3f2fd;
 }
 
 .todo-app__list ul li:after {
@@ -74,17 +79,12 @@ body {
   display: block;
   width: 100%;
   height: 1px;
-  margin-top: 5px;
+  margin-top: 10px;
   background-color: #e1bee7;
 }
 
-.todo-app__list-added, 
-.todo-app__list-done {
-  flex-basis: 50%;
-}
-
 .todo-app__list-added {
-  border-right: 1px solid #e1bee7;
+  flex-basis: 100%;
 }
 
 .todo-app__writer {
@@ -128,8 +128,32 @@ body {
   background-color: #000;
 }
 
+.label-done, .todo-delete {
+  display: inline-flex;
+}
+
+.label-done {
+  width: 90%;
+  align-items: center;
+}
+
+.todo-delete {
+  width: 10%;
+  justify-content: flex-end;
+  /* font-size: 1.2rem; */
+}
+
+.btn-delete {
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
 .btn-done {
   margin-right: .5em;
+}
+
+.todo-done {
+  text-decoration: line-through;
 }
 
 .btn-delete:hover {

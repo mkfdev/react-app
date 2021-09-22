@@ -1,55 +1,85 @@
 import React, { useState } from "react";
-import DoneList from "./done-list";
 import TodoInput from "./todo-input";
 import TodoList from "./todo-list";
 
 const TodoMain = () => {
-  const [data, setData] = useState([
-    { id: 1, text: 'first todo list', done: true },
-    { id: 2, text: 'todo list', done: false },
-    { id: 3, text: 'list', done: false },
+  const [todos, setTodos] = useState([
+    { id: 1, text: 'Javascript', completed: false },
+    { id: 2, text: 'React', completed: false },
+    { id: 3, text: 'Typescript', completed: false },
   ]);
 
-  const [updateDate, setUpdateDate] = useState(210918);
+  // 날짜 출력
+  const today = new Date();
+  const dateString = today.toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
+  // TODO 남은 할 일 체크
+  const undoneTodos = todos.filter(todo => !todo.completed);
+
+  //todos id 중 가장 큰 id값
+  const maxId = todos.length ? Math.max(...todos.map(todo => todo.id)) : 0;
+
+  // TODO 추가기능
+  const onAdd = (newText) => {
+    setTodos((prevTodo) => {
+      return [...prevTodo, { id: maxId + 1, text: newText, completed: false }]
+    });
+  };
+
+  // TODO 리셋기능
+  const onReset = () => {
+    if(!todos.length) {
+      alert("To do list is already empty!");
+      return;
+    }
+    setTodos([]);
+  };
+
+  // TODO 삭제기능
+  const onRemove = (id) => {
+    const updated = todos.filter(item => item.id !== id);
+    setTodos(updated);
+  };
+
+  // TODO 완료처리기능
+  const onCompleted = (id) => {
+    const newTodo = [...todos];
+    newTodo[id-1].completed = !newTodo[id-1].completed;
+    setTodos(newTodo);
+  };
 
   return (
     <div className="todo-app">
       <header className="todo-app__header">
         <h1 className="title">Todo Check List</h1>
-          {
-            updateDate &&
-            ( 
-            <div className="update-date">update date:
-              <span className="date">{updateDate}</span>
-            </div> 
-            )
-          }
+        <div className="day">{dateString}</div>
+        <div className="left-count">할 일 {undoneTodos.length}개 남음</div>
       </header>
 
       <section className="todo-app__list">
         <div className="todo-app__list-added">
-          <h2>To Do Lists</h2>
           <ul>
             {
-              data.map(item => (
+              todos.map(item => (
                 <TodoList
                  key={item.id}
-                 item={item} />
+                 item={item}
+                 onRemove={onRemove}
+                 onCompleted={onCompleted}/>
               ))
             }
-          </ul>
-        </div>
-        
-        <div className="todo-app__list-done">
-          <h2>Done Lists</h2>
-          <ul>
-            <DoneList />
           </ul>
         </div>
       </section>
 
       <div className="todo-app__writer">
-        <TodoInput />
+        <TodoInput 
+         onAdd={onAdd} 
+         onReset={onReset} />
       </div>
     </div>
   );
