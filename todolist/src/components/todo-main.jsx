@@ -9,6 +9,22 @@ const TodoMain = () => {
     { id: 3, text: 'Typescript', completed: false },
   ]);
 
+  const [filter, setFilter] = useState('All');
+
+  // Filter Function
+  const FILTER_MAP = {
+    All: () => true,
+    Active: todos => !todos.completed,
+    Completed: todos => todos.completed
+  }
+
+  // Filter Unique names
+  const FILTER_NAMES = Object.keys(FILTER_MAP);
+
+  const filterList = FILTER_NAMES.map(name => (
+    <TodoFilter key={name} name={name} setFilter={setFilter}/>
+  ));
+
   // 날짜 출력
   const today = new Date();
   const dateString = today.toLocaleDateString('ko-KR', {
@@ -33,7 +49,7 @@ const TodoMain = () => {
   // TODO 리셋기능
   const onReset = () => {
     if(!todos.length) {
-      alert("To do list is already empty!");
+      alert("list is already empty!");
       return;
     }
     setTodos([]);
@@ -60,11 +76,15 @@ const TodoMain = () => {
         <div className="left-count">할 일 {undoneTodos.length}개 남음</div>
       </header>
 
+      <nav>{ filterList }</nav>
+
       <section className="todo-app__list">
         <div className="todo-app__list-added">
           <ul>
             {
-              todos.map(item => (
+              todos
+              .filter(FILTER_MAP[filter])
+              .map(item => (
                 <TodoList
                  key={item.id}
                  item={item}
@@ -85,4 +105,11 @@ const TodoMain = () => {
   );
 }
 
+function TodoFilter(props) {
+  return (
+    <button onClick={() => props.setFilter(props.name)} className="btn-toggle">
+      {props.name}
+    </button>
+  );
+}
 export default TodoMain;
