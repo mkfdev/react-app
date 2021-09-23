@@ -73,7 +73,7 @@ const TodoMain = () => {
       <header className="todo-app__header">
         <h1 className="title">Todo Check List</h1>
         <div className="day">{dateString}</div>
-        <div className="left-count">할 일 {undoneTodos.length}개 남음</div>
+        <div className="left-count">할 일 <span class="count">{undoneTodos.length}</span>개 남음</div>
       </header>
 
       <nav>{ filterList }</nav>
