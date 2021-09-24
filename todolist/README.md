@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+## 1. 소개 및 목적
+- 간단한 리액트 To do list
+- 리액트 Hooks 사용
+- 목적: 리액트 함수형 Hooks 이해
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## 2. 사용 라이브러리 or 모듈
+  
+  font fontawesome
+  ```
+  yarn add @fortawesome/fontawesome-free
+  ```
+  react-app-polyfill
+  ```
+  yarn add react-app-polyfill
 
-In the project directory, you can run:
+  import 'react-app-polyfill/ie11';
+  import 'react-app-polyfill/stable';
 
-### `yarn start`
+  ```
+  그리고 browserlist에 "IE 11" 추가
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 3. 배운것
 
-### `yarn test`
+- class와 함수형
+class는 리액트에서 제공하는 Component 클래스를 상속받아서 만든다.
+내 컴포넌트 안에 state 오브젝트가 있음
+lifecycle method가 있음.
+state가 변경되면 render가 호출되고 화면이 업데이트됨.
+this binding issue가 불편하다.
+lifecycle 코드가 중복될 수 있다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+함수형은 간단하게 함수로 만든다.
+state, lifecycle method가 없다 대신에 리액트 훅으로 사용이 가능하다.
+state -> useState
+componentWillMount(), componentDidMount(), componentWillUnmount() 등등 -> useEffect
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- PureComponent와 Component의 차이
+PureComponent는 리액트의 Lifecycle methods 중 하나인 'shouldComponentUpdate'을 구현해서 props과 state의 변경사항이 발생하면 shallow comparisons을 하고 _오브젝트 자체_가 변경되지 않았다면 다시 render를 하지 않는 컴포넌트이다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- JSX
+JSX파일에서는 javascript안에서 html을 직관적으로 작성하여 이용할 수 있음. 자바스크립트, 비즈니스 로직도 작성이 가능하다.
